@@ -1,11 +1,11 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
 interface CardProps {
-  children: ReactNode;
-  className?: string;
-  padding?: 'none' | 'sm' | 'md' | 'lg';
-  hover?: boolean;
-  onClick?: () => void;
+  children: ReactNode
+  className?: string
+  padding?: 'none' | 'sm' | 'md' | 'lg'
+  hover?: boolean
+  onClick?: () => void
 }
 
 const paddingStyles = {
@@ -13,7 +13,7 @@ const paddingStyles = {
   sm: 'p-3',
   md: 'p-4',
   lg: 'p-6',
-};
+}
 
 export function Card({
   children,
@@ -24,7 +24,7 @@ export function Card({
 }: CardProps) {
   const hoverStyles = hover
     ? 'cursor-pointer hover:border-border-hover hover:bg-bg-tertiary/50 transition-colors duration-200'
-    : '';
+    : ''
 
   return (
     <div
@@ -38,5 +38,5 @@ export function Card({
     >
       {children}
     </div>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-import { TableSchema } from '@/lib/types';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
+import { TableSchema } from '@/lib/types'
+import { Card } from '@/components/ui/Card'
+import { Badge } from '@/components/ui/Badge'
 
 interface SchemaCardProps {
-  schema: TableSchema;
-  isSelected: boolean;
-  onClick: () => void;
+  schema: TableSchema
+  isSelected: boolean
+  onClick: () => void
 }
 
 export function SchemaCard({ schema, isSelected, onClick }: SchemaCardProps) {
@@ -42,5 +42,5 @@ export function SchemaCard({ schema, isSelected, onClick }: SchemaCardProps) {
         )}
       </div>
     </Card>
-  );
+  )
 }

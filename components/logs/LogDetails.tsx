@@ -1,8 +1,8 @@
-import { LogEntry, isSuccessLogEntry, ValidationError } from '@/lib/types';
-import { CodeBlock } from '@/components/ui/CodeBlock';
+import { LogEntry, isSuccessLogEntry, ValidationError } from '@/lib/types'
+import { CodeBlock } from '@/components/ui/CodeBlock'
 
 interface LogDetailsProps {
-  entry: LogEntry;
+  entry: LogEntry
 }
 
 function ValidationErrorItem({ error }: { error: ValidationError }) {
@@ -19,7 +19,9 @@ function ValidationErrorItem({ error }: { error: ValidationError }) {
           <div className="flex gap-4 text-xs">
             <div>
               <span className="text-text-secondary">Expected: </span>
-              <span className="font-mono text-success">{error.expectedType}</span>
+              <span className="font-mono text-success">
+                {error.expectedType}
+              </span>
             </div>
             <div>
               <span className="text-text-secondary">Received: </span>
@@ -35,7 +37,7 @@ function ValidationErrorItem({ error }: { error: ValidationError }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export function LogDetails({ entry }: LogDetailsProps) {
@@ -49,7 +51,7 @@ export function LogDetails({ entry }: LogDetailsProps) {
         </div>
         <CodeBlock code={JSON.stringify(entry.data, null, 2)} />
       </div>
-    );
+    )
   }
 
   return (
@@ -71,5 +73,5 @@ export function LogDetails({ entry }: LogDetailsProps) {
       </div>
       <CodeBlock code={JSON.stringify(entry.attemptedData, null, 2)} />
     </div>
-  );
+  )
 }

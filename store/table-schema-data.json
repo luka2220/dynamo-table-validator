@@ -1,0 +1,166 @@
+[
+  {
+    "id": "1",
+    "tableName": "Users",
+    "partitionKey": {
+      "name": "userId",
+      "type": "S"
+    },
+    "attributes": [
+      {
+        "name": "email",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "age",
+        "type": "N",
+        "required": false
+      },
+      {
+        "name": "isActive",
+        "type": "BOOL",
+        "required": true
+      },
+      {
+        "name": "preferences",
+        "type": "M",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "tableName": "Orders",
+    "partitionKey": {
+      "name": "orderId",
+      "type": "S"
+    },
+    "sortKey": {
+      "name": "createdAt",
+      "type": "N"
+    },
+    "attributes": [
+      {
+        "name": "userId",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "totalAmount",
+        "type": "N",
+        "required": true
+      },
+      {
+        "name": "quantity",
+        "type": "N",
+        "required": true
+      },
+      {
+        "name": "status",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "items",
+        "type": "L",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "tableName": "Products",
+    "partitionKey": {
+      "name": "productId",
+      "type": "S"
+    },
+    "attributes": [
+      {
+        "name": "name",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "price",
+        "type": "N",
+        "required": true
+      },
+      {
+        "name": "inStock",
+        "type": "BOOL",
+        "required": true
+      },
+      {
+        "name": "tags",
+        "type": "SS",
+        "required": false
+      },
+      {
+        "name": "description",
+        "type": "S",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "tableName": "Sessions",
+    "partitionKey": {
+      "name": "sessionId",
+      "type": "S"
+    },
+    "attributes": [
+      {
+        "name": "userId",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "expiresAt",
+        "type": "N",
+        "required": true
+      },
+      {
+        "name": "data",
+        "type": "M",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "mokpu2ocf",
+    "tableName": "TestSchemaValidator",
+    "partitionKey": {
+      "name": "id",
+      "type": "S"
+    },
+    "attributes": [
+      {
+        "name": "age",
+        "type": "N",
+        "required": true
+      },
+      {
+        "name": "email",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "name",
+        "type": "S",
+        "required": true
+      },
+      {
+        "name": "isActive",
+        "type": "BOOL",
+        "required": false
+      }
+    ]
+  }
+]

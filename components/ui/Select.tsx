@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import { SelectHTMLAttributes, forwardRef } from 'react';
+import { SelectHTMLAttributes, forwardRef } from 'react'
 
 interface SelectOption {
-  value: string;
-  label: string;
+  value: string
+  label: string
 }
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label?: string;
-  error?: string;
-  options: SelectOption[];
+  label?: string
+  error?: string
+  options: SelectOption[]
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, error, options, className = '', id, ...props }, ref) => {
-    const selectId = id || label?.toLowerCase().replace(/\s+/g, '-');
+    const selectId = id || label?.toLowerCase().replace(/\s+/g, '-')
 
     return (
       <div className="flex flex-col gap-1.5">
@@ -48,12 +48,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           ))}
         </select>
-        {error && (
-          <p className="text-sm text-error">{error}</p>
-        )}
+        {error && <p className="text-sm text-error">{error}</p>}
       </div>
-    );
+    )
   }
-);
+)
 
-Select.displayName = 'Select';
+Select.displayName = 'Select'

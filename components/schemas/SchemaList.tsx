@@ -1,21 +1,28 @@
-'use client';
+'use client'
 
-import { TableSchema } from '@/lib/types';
-import { SchemaCard } from './SchemaCard';
-import { Button } from '@/components/ui/Button';
+import { TableSchema } from '@/lib/types'
+import { SchemaCard } from './SchemaCard'
+import { Button } from '@/components/ui/Button'
 
 interface SchemaListProps {
-  schemas: TableSchema[];
-  selectedId: string | null;
-  onSelect: (schema: TableSchema) => void;
-  onCreateNew: () => void;
+  schemas: TableSchema[]
+  selectedId: string | null
+  onSelect: (schema: TableSchema) => void
+  onCreateNew: () => void
 }
 
-export function SchemaList({ schemas, selectedId, onSelect, onCreateNew }: SchemaListProps) {
+export function SchemaList({
+  schemas,
+  selectedId,
+  onSelect,
+  onCreateNew,
+}: SchemaListProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-text-primary">Table Schemas</h2>
+        <h2 className="text-lg font-semibold text-text-primary">
+          Table Schemas
+        </h2>
         <Button size="sm" onClick={onCreateNew}>
           <svg
             className="w-4 h-4 mr-1.5"
@@ -51,5 +58,5 @@ export function SchemaList({ schemas, selectedId, onSelect, onCreateNew }: Schem
         )}
       </div>
     </div>
-  );
+  )
 }

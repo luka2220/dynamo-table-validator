@@ -1,18 +1,18 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 
-type BadgeVariant = 'success' | 'error' | 'neutral';
+type BadgeVariant = 'success' | 'error' | 'neutral'
 
 interface BadgeProps {
-  variant: BadgeVariant;
-  children: ReactNode;
-  className?: string;
+  variant: BadgeVariant
+  children: ReactNode
+  className?: string
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
   success: 'bg-success-bg text-success border-success/20',
   error: 'bg-error-bg text-error border-error/20',
   neutral: 'bg-bg-tertiary text-text-secondary border-border',
-};
+}
 
 export function Badge({ variant, children, className = '' }: BadgeProps) {
   return (
@@ -24,5 +24,5 @@ export function Badge({ variant, children, className = '' }: BadgeProps) {
     >
       {children}
     </span>
-  );
+  )
 }

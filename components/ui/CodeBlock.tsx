@@ -1,21 +1,25 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
 interface CodeBlockProps {
-  code: string;
-  language?: string;
-  className?: string;
+  code: string
+  language?: string
+  className?: string
 }
 
-export function CodeBlock({ code, language = 'json', className = '' }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false);
+export function CodeBlock({
+  code,
+  language = 'json',
+  className = '',
+}: CodeBlockProps) {
+  const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    await navigator.clipboard.writeText(code)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <div className={`relative group ${className}`}>
@@ -40,5 +44,5 @@ export function CodeBlock({ code, language = 'json', className = '' }: CodeBlock
         <code className={`language-${language}`}>{code}</code>
       </pre>
     </div>
-  );
+  )
 }

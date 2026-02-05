@@ -1,29 +1,34 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { LogEntry as LogEntryType, isSuccessLogEntry, isErrorLogEntry } from '@/lib/types';
-import { Badge } from '@/components/ui/Badge';
-import { Card } from '@/components/ui/Card';
-import { LogDetails } from './LogDetails';
+import { useState } from 'react'
+import {
+  LogEntry as LogEntryType,
+  isSuccessLogEntry,
+  isErrorLogEntry,
+} from '@/lib/types'
+import { Badge } from '@/components/ui/Badge'
+import { Card } from '@/components/ui/Card'
+import { LogDetails } from './LogDetails'
 
 interface LogEntryProps {
-  entry: LogEntryType;
+  entry: LogEntryType
 }
 
-function formatTime(date: Date): string {
-  return date.toLocaleTimeString('en-US', {
+function formatTime(date: Date | string): string {
+  const d = typeof date === 'string' ? new Date(date) : date
+  return d.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
     hour12: false,
-  });
+  })
 }
 
 export function LogEntry({ entry }: LogEntryProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false)
 
-  const isSuccess = isSuccessLogEntry(entry);
-  const isError = isErrorLogEntry(entry);
+  const isSuccess = isSuccessLogEntry(entry)
+  const isError = isErrorLogEntry(entry)
 
   return (
     <Card
@@ -52,7 +57,8 @@ export function LogEntry({ entry }: LogEntryProps) {
           <div className="flex items-center gap-4">
             {isError && (
               <span className="text-sm text-error">
-                {entry.errors.length} error{entry.errors.length !== 1 ? 's' : ''}
+                {entry.errors.length} error
+                {entry.errors.length !== 1 ? 's' : ''}
               </span>
             )}
             <span className="text-sm text-text-secondary font-mono">
@@ -85,5 +91,5 @@ export function LogEntry({ entry }: LogEntryProps) {
         {isExpanded && <LogDetails entry={entry} />}
       </div>
     </Card>
-  );
+  )
 }
