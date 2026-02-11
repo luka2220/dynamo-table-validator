@@ -11,6 +11,7 @@ import {
 } from '@aws-sdk/client-dynamodb'
 import { getSchemaByTableName } from './schema-actions'
 import type { DynamoRequestData } from './types'
+import { addLogEntry } from './log-actions'
 
 const dynamoClient = new DynamoDBClient({
   region: 'us-east-1',
@@ -28,6 +29,7 @@ export async function ValidateDynamoRequest(request: DynamoRequestData) {
         return await Query(request.body)
       }
       case 'PutItem':
+        return await PutItem(request.body)
       case 'UpdateItem':
       case 'DeleteItem':
       default:
@@ -44,13 +46,13 @@ export async function ValidateDynamoRequest(request: DynamoRequestData) {
   }
 }
 
-/** Listens and forwards a GetItem request to DynamoDB */
+/** Forwards GetItem requests to DynamoDB, does not log */
 async function GetItem(body: GetItemCommandInput) {
   const command = new GetItemCommand(body)
   return await dynamoClient.send(command)
 }
 
-/** Listens and forwards a Query request to DynamoDB */
+/** Forwards Query requests to DynamoDB, does not log */
 async function Query(body: QueryCommandInput) {
   const command = new QueryCommand(body)
   return await dynamoClient.send(command)
@@ -62,7 +64,17 @@ async function PutItem(body: PutItemCommandInput) {
   const schema = await getSchemaByTableName(tableName || '')
 
   if (!schema) {
-    // If no schema was found for the table, forward the request
+    console.log('No schema found for table: ', tableName)
+
+    addLogEntry({
+      status: 'unknown',
+      tableName: tableName || '',
+      operation: 'PutItem',
+      data: body.Item || {},
+      id: crypto.randomUUID(),
+      timestamp: new Date(),
+    })
+
     return await dynamoClient.send(new PutItemCommand(body))
   }
 

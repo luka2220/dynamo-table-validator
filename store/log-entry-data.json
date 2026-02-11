@@ -1,16 +1,98 @@
 [
   {
+    "status": "unknown",
+    "tableName": "Users",
+    "operation": "PutItem",
+    "data": {
+      "id": {
+        "S": "test-key"
+      },
+      "name": {
+        "S": "test-name"
+      },
+      "age": {
+        "N": "20"
+      },
+      "email": {
+        "S": "test@example.com"
+      },
+      "createdAt": {
+        "S": "2026-02-11T13:44:08.205Z"
+      }
+    },
+    "id": "cbc34c26-3da4-459b-9b01-d31d6d4fdca1",
+    "timestamp": "2026-02-11T13:44:08.208Z"
+  },
+  {
+    "status": "unknown",
+    "tableName": "Users",
+    "operation": "PutItem",
+    "data": {
+      "id": {
+        "S": "test-key"
+      },
+      "name": {
+        "S": "test-name"
+      },
+      "age": {
+        "N": "20"
+      },
+      "email": {
+        "S": "test@example.com"
+      },
+      "createdAt": {
+        "S": "2026-02-11T13:43:50.490Z"
+      }
+    },
+    "id": "2ff46464-02d5-47ea-85fb-4d188ba563a8",
+    "timestamp": "2026-02-11T13:43:50.492Z"
+  },
+  {
+    "status": "unknown",
+    "tableName": "Users",
+    "operation": "PutItem",
+    "data": {
+      "id": {
+        "S": "test-key"
+      },
+      "name": {
+        "S": "test-name"
+      },
+      "age": {
+        "N": "20"
+      },
+      "email": {
+        "S": "test@example.com"
+      },
+      "createdAt": {
+        "S": "2026-02-11T12:54:32.750Z"
+      }
+    },
+    "id": "838b84a9-f2c2-4b74-a6d1-5562c60e9e75",
+    "timestamp": "2026-02-11T12:54:32.752Z"
+  },
+  {
     "id": "1",
     "timestamp": "2026-01-25T10:30:00.000Z",
     "tableName": "Users",
     "operation": "PutItem",
     "status": "success",
     "data": {
-      "userId": { "S": "user-123" },
-      "email": { "S": "john@example.com" },
-      "name": { "S": "John Doe" },
-      "age": { "N": "28" },
-      "isActive": { "BOOL": true }
+      "userId": {
+        "S": "user-123"
+      },
+      "email": {
+        "S": "john@example.com"
+      },
+      "name": {
+        "S": "John Doe"
+      },
+      "age": {
+        "N": "28"
+      },
+      "isActive": {
+        "BOOL": true
+      }
     }
   },
   {
@@ -36,10 +118,18 @@
       }
     ],
     "attemptedData": {
-      "orderId": { "S": "order-456" },
-      "userId": { "S": "user-123" },
-      "totalAmount": { "S": "99.99" },
-      "quantity": { "BOOL": true }
+      "orderId": {
+        "S": "order-456"
+      },
+      "userId": {
+        "S": "user-123"
+      },
+      "totalAmount": {
+        "S": "99.99"
+      },
+      "quantity": {
+        "BOOL": true
+      }
     }
   },
   {
@@ -49,11 +139,25 @@
     "operation": "UpdateItem",
     "status": "success",
     "data": {
-      "productId": { "S": "prod-789" },
-      "name": { "S": "Wireless Headphones" },
-      "price": { "N": "149.99" },
-      "inStock": { "BOOL": true },
-      "tags": { "SS": ["electronics", "audio", "wireless"] }
+      "productId": {
+        "S": "prod-789"
+      },
+      "name": {
+        "S": "Wireless Headphones"
+      },
+      "price": {
+        "N": "149.99"
+      },
+      "inStock": {
+        "BOOL": true
+      },
+      "tags": {
+        "SS": [
+          "electronics",
+          "audio",
+          "wireless"
+        ]
+      }
     }
   },
   {
@@ -72,9 +176,15 @@
       }
     ],
     "attemptedData": {
-      "sessionId": { "S": "sess-abc" },
-      "userId": { "S": "user-123" },
-      "expiresAt": { "S": "2026-01-26T10:29:15Z" }
+      "sessionId": {
+        "S": "sess-abc"
+      },
+      "userId": {
+        "S": "user-123"
+      },
+      "expiresAt": {
+        "S": "2026-01-26T10:29:15Z"
+      }
     }
   },
   {
@@ -84,15 +194,29 @@
     "operation": "UpdateItem",
     "status": "success",
     "data": {
-      "userId": { "S": "user-456" },
-      "email": { "S": "jane@example.com" },
-      "name": { "S": "Jane Smith" },
-      "age": { "N": "32" },
-      "isActive": { "BOOL": true },
+      "userId": {
+        "S": "user-456"
+      },
+      "email": {
+        "S": "jane@example.com"
+      },
+      "name": {
+        "S": "Jane Smith"
+      },
+      "age": {
+        "N": "32"
+      },
+      "isActive": {
+        "BOOL": true
+      },
       "preferences": {
         "M": {
-          "theme": { "S": "dark" },
-          "notifications": { "BOOL": true }
+          "theme": {
+            "S": "dark"
+          },
+          "notifications": {
+            "BOOL": true
+          }
         }
       }
     }
@@ -127,11 +251,21 @@
       }
     ],
     "attemptedData": {
-      "inventoryId": { "S": "inv-001" },
-      "productId": { "S": "prod-789" },
-      "count": { "NULL": true },
-      "warehouseId": { "N": "12345" },
-      "lastUpdated": { "S": "yesterday" }
+      "inventoryId": {
+        "S": "inv-001"
+      },
+      "productId": {
+        "S": "prod-789"
+      },
+      "count": {
+        "NULL": true
+      },
+      "warehouseId": {
+        "N": "12345"
+      },
+      "lastUpdated": {
+        "S": "yesterday"
+      }
     }
   },
   {
@@ -141,14 +275,26 @@
     "operation": "PutItem",
     "status": "success",
     "data": {
-      "logId": { "S": "audit-001" },
-      "action": { "S": "USER_LOGIN" },
-      "userId": { "S": "user-123" },
-      "timestamp": { "N": "1737801510" },
+      "logId": {
+        "S": "audit-001"
+      },
+      "action": {
+        "S": "USER_LOGIN"
+      },
+      "userId": {
+        "S": "user-123"
+      },
+      "timestamp": {
+        "N": "1737801510"
+      },
       "metadata": {
         "M": {
-          "ip": { "S": "192.168.1.1" },
-          "userAgent": { "S": "Mozilla/5.0" }
+          "ip": {
+            "S": "192.168.1.1"
+          },
+          "userAgent": {
+            "S": "Mozilla/5.0"
+          }
         }
       }
     }
@@ -160,7 +306,9 @@
     "operation": "DeleteItem",
     "status": "success",
     "data": {
-      "productId": { "S": "prod-old-001" }
+      "productId": {
+        "S": "prod-old-001"
+      }
     }
   }
 ]

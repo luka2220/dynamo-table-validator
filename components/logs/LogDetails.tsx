@@ -1,4 +1,9 @@
-import { LogEntry, isSuccessLogEntry, ValidationError } from '@/lib/types'
+import {
+  LogEntry,
+  isSuccessLogEntry,
+  isUnknownTableLogEntry,
+  ValidationError,
+} from '@/lib/types'
 import { CodeBlock } from '@/components/ui/CodeBlock'
 
 interface LogDetailsProps {
@@ -44,7 +49,7 @@ function ValidationErrorItem({ error }: { error: ValidationError }) {
 }
 
 export function LogDetails({ entry }: LogDetailsProps) {
-  if (isSuccessLogEntry(entry)) {
+  if (isSuccessLogEntry(entry) || isUnknownTableLogEntry(entry)) {
     return (
       <div className="mt-3 pt-3 border-t border-border">
         <div className="mb-2">

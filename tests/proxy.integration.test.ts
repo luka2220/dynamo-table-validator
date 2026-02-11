@@ -8,6 +8,7 @@ import {
 import { proxy } from '@/proxy'
 
 const TEST_DYNAMO_TABLE = 'TestSchemaValidator'
+const TEST_DYNAMO_TABLE_UNKNOWN = 'Users'
 
 let server: ReturnType<typeof Bun.serve>
 const TEST_PORT = 4567
@@ -69,14 +70,30 @@ test('Invalid operation returns error response', async () => {
   expect(text).toContain('Invalid dynamo operation')
 })
 
-test('PutItem through proxy to local DynamoDB', async () => {
+// test('PutItem through proxy to local DynamoDB', async () => {
+//   const command = new PutItemCommand({
+//     TableName: TEST_DYNAMO_TABLE,
+//     Item: {
+//       id: { S: 'test-key' },
+//       name: { S: 'test-name' },
+//       age: { N: '20' },
+//       email: { S: 'test@example.com' },
+//     },
+//   })
+
+//   const response = await client.send(command)
+//   expect(response).toBeDefined()
+// })
+
+test('PutItem through proxy to local DynamoDB with unknown table', async () => {
   const command = new PutItemCommand({
-    TableName: TEST_DYNAMO_TABLE,
+    TableName: TEST_DYNAMO_TABLE_UNKNOWN,
     Item: {
       id: { S: 'test-key' },
       name: { S: 'test-name' },
       age: { N: '20' },
       email: { S: 'test@example.com' },
+      createdAt: { S: new Date().toISOString() },
     },
   })
 

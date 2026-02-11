@@ -6,7 +6,7 @@ import type {
   DeleteItemCommandInput,
 } from '@aws-sdk/client-dynamodb'
 
-// DynamoDB attribute types
+/** DynamoDB attribute types */
 export type DynamoDBType =
   | 'S'
   | 'N'
@@ -19,16 +19,16 @@ export type DynamoDBType =
   | 'BS'
   | 'NULL'
 
-// Key attribute types (only S, N, B allowed for keys)
+/** Key attribute types (only S, N, B allowed for keys) */
 export type KeyType = 'S' | 'N' | 'B'
 
-// Operation types
+/** Operation types */
 export type OperationType = 'PutItem' | 'UpdateItem' | 'DeleteItem'
 
-// Log status
-export type LogStatus = 'success' | 'error'
+/** Log status */
+export type LogStatus = 'success' | 'error' | 'unknown'
 
-// Validation error
+/** Validation error */
 export interface ValidationError {
   attributeName: string
   expectedType: string
@@ -37,7 +37,7 @@ export interface ValidationError {
   message: string
 }
 
-// Base log entry
+/** Base log entry */
 interface BaseLogEntry {
   id: string
   timestamp: Date
@@ -45,36 +45,43 @@ interface BaseLogEntry {
   operation: OperationType
 }
 
-// Success log entry
+/** Success log entry */
 export interface SuccessLogEntry extends BaseLogEntry {
   status: 'success'
   data: Record<string, unknown>
 }
 
-// Error log entry
+/** Error log entry */
 export interface ErrorLogEntry extends BaseLogEntry {
   status: 'error'
   errors: ValidationError[]
   attemptedData: Record<string, unknown>
 }
 
-// Union type for log entries
-export type LogEntry = SuccessLogEntry | ErrorLogEntry
+/** Unknown Table Log Entry */
+export interface UnknownTableLogEntry extends BaseLogEntry {
+  status: 'unknown'
+  data: Record<string, unknown>
+  tableName: string
+}
 
-// Schema attribute
+/** Union type for log entries */
+export type LogEntry = SuccessLogEntry | ErrorLogEntry | UnknownTableLogEntry
+
+/** Schema attribute */
 export interface SchemaAttribute {
   name: string
   type: DynamoDBType
   required: boolean
 }
 
-// Key definition
+/** Key definition */
 export interface KeyDefinition {
   name: string
   type: KeyType
 }
 
-// Table schema
+/** Table schema */
 export interface TableSchema {
   id: string
   tableName: string
@@ -83,13 +90,19 @@ export interface TableSchema {
   attributes: SchemaAttribute[]
 }
 
-// Type guards
+/** Type guards */
 export function isSuccessLogEntry(entry: LogEntry): entry is SuccessLogEntry {
   return entry.status === 'success'
 }
 
 export function isErrorLogEntry(entry: LogEntry): entry is ErrorLogEntry {
   return entry.status === 'error'
+}
+
+export function isUnknownTableLogEntry(
+  entry: LogEntry
+): entry is UnknownTableLogEntry {
+  return entry.status === 'unknown'
 }
 
 export const DynamoOperationEnum = z.enum([

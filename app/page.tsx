@@ -16,7 +16,7 @@ export default async function Home() {
         </p>
       </div>
 
-      <LogStream logs={logs} />
+      <LogStream />
     </div>
   )
 }

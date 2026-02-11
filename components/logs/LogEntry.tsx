@@ -5,6 +5,7 @@ import {
   LogEntry as LogEntryType,
   isSuccessLogEntry,
   isErrorLogEntry,
+  isUnknownTableLogEntry,
 } from '@/lib/types'
 import { Badge } from '@/components/ui/Badge'
 import { Card } from '@/components/ui/Card'
@@ -30,6 +31,7 @@ export function LogEntry({ entry }: LogEntryProps) {
 
   const isSuccess = isSuccessLogEntry(entry)
   const isError = isErrorLogEntry(entry)
+  const isUnknown = isUnknownTableLogEntry(entry)
 
   return (
     <Card
@@ -44,8 +46,24 @@ export function LogEntry({ entry }: LogEntryProps) {
       <div className="p-4">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Badge variant={isSuccess ? 'success' : 'error'}>
-              {isSuccess ? 'Success' : 'Error'}
+            <Badge
+              variant={
+                isSuccess
+                  ? 'success'
+                  : isError
+                    ? 'error'
+                    : isUnknown
+                      ? 'neutral'
+                      : 'neutral'
+              }
+            >
+              {isSuccess
+                ? 'Success'
+                : isError
+                  ? 'Error'
+                  : isUnknown
+                    ? 'Unknown Table'
+                    : 'Unknown'}
             </Badge>
             <span className="font-medium text-text-primary">
               {entry.tableName}

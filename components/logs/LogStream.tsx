@@ -1,22 +1,17 @@
 'use client'
 
 import { useState, useTransition } from 'react'
-import { LogEntry as LogEntryType } from '@/lib/types'
 import { LogEntry } from './LogEntry'
 import { Button } from '@/components/ui/Button'
 import { clearLogs } from '@/lib/log-actions'
-import { useRouter } from 'next/navigation'
+import { useLogsStream } from '@/hooks/useLogsStream'
 
-interface LogStreamProps {
-  logs: LogEntryType[]
-}
+type FilterType = 'all' | 'success' | 'error' | 'unknown'
 
-type FilterType = 'all' | 'success' | 'error'
-
-export function LogStream({ logs }: LogStreamProps) {
+export function LogStream() {
+  const { logs, isConnected, error } = useLogsStream()
   const [filter, setFilter] = useState<FilterType>('all')
   const [isPending, startTransition] = useTransition()
-  const router = useRouter()
 
   const filteredLogs = logs.filter((log) => {
     if (filter === 'all') return true
@@ -25,6 +20,7 @@ export function LogStream({ logs }: LogStreamProps) {
 
   const successCount = logs.filter((l) => l.status === 'success').length
   const errorCount = logs.filter((l) => l.status === 'error').length
+  const unknownCount = logs.filter((l) => l.status === 'unknown').length
 
   const handleClearLogs = () => {
     startTransition(async () => {
@@ -33,9 +29,11 @@ export function LogStream({ logs }: LogStreamProps) {
       if (!result.success) {
         console.error('An error occurred clearing the logs: ')
       }
-
-      router.refresh()
     })
+  }
+
+  if (error) {
+    return <div className="text-center py-12 text-text-secondary">{error}</div>
   }
 
   return (
@@ -71,11 +69,22 @@ export function LogStream({ logs }: LogStreamProps) {
           >
             Errors ({errorCount})
           </Button>
+          <Button
+            variant={filter === 'unknown' ? 'primary' : 'ghost'}
+            size="sm"
+            onClick={() => setFilter('unknown')}
+          >
+            Unknown ({unknownCount})
+          </Button>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-text-secondary">
-          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          Live
+          <span
+            className={`w-2 h-2 rounded-full ${
+              isConnected ? 'bg-success' : 'bg-error'
+            } animate-pulse`}
+          />
+          {isConnected ? 'Live' : 'Disconnected'}
         </div>
       </div>
 
