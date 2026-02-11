@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import { ValidateDynamoRequest } from './lib/dynamo'
+import { ValidateDynamoRequest } from '@/lib/dynamo'
 import {
   DynamoRequestBody,
   DynamoOperationEnum,
   DynamoRequestData,
-} from './lib/types'
+} from '@/lib/types'
 
 const VALID_DYNAMO_API_VERSIONS = ['DynamoDB_20120810']
 
@@ -22,26 +22,44 @@ export async function proxy(request: NextRequest) {
     request.method == 'POST' &&
     VALID_DYNAMO_API_VERSIONS.includes(dynamoApiVersion || '')
   ) {
-    if (parsedOperation.error) {
-      // Invalid dynamo operation
-      console.log(`Invalid dynamo operation: ${parsedOperation.error}`)
-      return new Response(`Invalid dynamo operation: ${parsedOperation.error}`)
+    try {
+      if (parsedOperation.error) {
+        // Invalid dynamo operation
+        console.log(`Invalid dynamo operation: ${parsedOperation.error}`)
+        return new Response(
+          `Invalid dynamo operation: ${parsedOperation.error}`
+        )
+      }
+
+      const body = (await request.json()) as DynamoRequestBody
+
+      const dynamoData = {
+        body: body,
+        operation: parsedOperation.data,
+        headers: {
+          'content-length': request.headers.get('content-length') || '',
+          'x-amz-target': target,
+          'x-amz-date': request.headers.get('x-amz-date') || '',
+        },
+      } as DynamoRequestData
+
+      const dynamoResponse = await ValidateDynamoRequest(dynamoData)
+      return new Response(JSON.stringify(dynamoResponse))
+    } catch (error) {
+      //
+      // TODO: Add custom error handling for failed schema validation
+      //
+
+      console.error('An error ocurred in the proxy function: ', {
+        error: error instanceof Error ? error.message : error,
+        stack: error instanceof Error && error.stack,
+      })
+
+      return new Response(
+        `Internal server error: ${error instanceof Error ? error.message : error}`,
+        { status: 500 }
+      )
     }
-
-    const body = (await request.json()) as DynamoRequestBody
-
-    const dynamoData = {
-      body: body,
-      operation: parsedOperation.data,
-      headers: {
-        'content-length': request.headers.get('content-length') || '',
-        'x-amz-target': target,
-        'x-amz-date': request.headers.get('x-amz-date') || '',
-      },
-    } as DynamoRequestData
-
-    const dynamoResponse = await ValidateDynamoRequest(dynamoData)
-    return new Response(JSON.stringify(dynamoResponse))
   }
 
   return NextResponse.next()

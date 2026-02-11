@@ -23,6 +23,7 @@ export function SchemaList({
         <h2 className="text-lg font-semibold text-text-primary">
           Table Schemas
         </h2>
+
         <Button size="sm" onClick={onCreateNew}>
           <svg
             className="w-4 h-4 mr-1.5"

@@ -3,8 +3,9 @@ import {
   DynamoDBClient,
   GetItemCommand,
   QueryCommand,
+  PutItemCommand,
 } from '@aws-sdk/client-dynamodb'
-import { proxy } from '../proxy'
+import { proxy } from '@/proxy'
 
 const TEST_DYNAMO_TABLE = 'TestSchemaValidator'
 
@@ -66,4 +67,19 @@ test('Invalid operation returns error response', async () => {
 
   const text = await response.text()
   expect(text).toContain('Invalid dynamo operation')
+})
+
+test('PutItem through proxy to local DynamoDB', async () => {
+  const command = new PutItemCommand({
+    TableName: TEST_DYNAMO_TABLE,
+    Item: {
+      id: { S: 'test-key' },
+      name: { S: 'test-name' },
+      age: { N: '20' },
+      email: { S: 'test@example.com' },
+    },
+  })
+
+  const response = await client.send(command)
+  expect(response).toBeDefined()
 })

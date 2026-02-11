@@ -10,6 +10,14 @@ export async function getSchemas(): Promise<TableSchema[]> {
   return readJsonFile<TableSchema>(SCHEMAS_PATH)
 }
 
+/** Fetchs a store schema by table name */
+export async function getSchemaByTableName(
+  tableName: string
+): Promise<TableSchema | null> {
+  const schemas = await getSchemas()
+  return schemas.find((s) => s.tableName === tableName) || null
+}
+
 /**
  * Save a table schema (create or update)
  */

@@ -7,7 +7,7 @@ import {
   DynamoDBType,
   KeyType,
 } from '@/lib/types'
-import { dynamoDBTypeLabels } from '@/lib/mock-data'
+import { dynamoDBTypeLabels } from '@/utils/constants'
 import { Card } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Select } from '@/components/ui/Select'
@@ -268,6 +268,7 @@ export function SchemaEditor({
           <Button type="button" variant="secondary" onClick={onCancel}>
             Cancel
           </Button>
+
           <Button type="submit">
             {isNew ? 'Create Schema' : 'Save Changes'}
           </Button>

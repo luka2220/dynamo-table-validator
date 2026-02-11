@@ -1,10 +1,16 @@
 import { promises as fs } from 'fs'
 import path from 'path'
-import type { LogEntry, TableSchema } from './types'
+import type { LogEntry } from './types'
 
 // File paths for JSON persistence
-export const LOG_ENTRIES_PATH = path.join(process.cwd(), 'store/log-entry-data.json')
-export const SCHEMAS_PATH = path.join(process.cwd(), 'store/table-schema-data.json')
+export const LOG_ENTRIES_PATH = path.join(
+  process.cwd(),
+  'store/log-entry-data.json'
+)
+export const SCHEMAS_PATH = path.join(
+  process.cwd(),
+  'store/table-schema-data.json'
+)
 
 // Serialized version of LogEntry with ISO string timestamp
 export type SerializedLogEntry = Omit<LogEntry, 'timestamp'> & {
@@ -32,7 +38,10 @@ export async function readJsonFile<T>(filePath: string): Promise<T[]> {
 /**
  * Write data to a JSON file
  */
-export async function writeJsonFile<T>(filePath: string, data: T[]): Promise<void> {
+export async function writeJsonFile<T>(
+  filePath: string,
+  data: T[]
+): Promise<void> {
   const content = JSON.stringify(data, null, 2)
   await fs.writeFile(filePath, content, 'utf-8')
 }
